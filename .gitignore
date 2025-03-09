@@ -1,0 +1,26 @@
+# קבצים מהמערכת
+.vs/
+*.user
+*.suo
+*.cache
+*.csproj.user
+*.sln.docstates
+
+# תיקיות Build
+bin/
+obj/
+out/
+
+# חבילות NuGet
+packages/
+*.nupkg
+project.lock.json
+project.assets.json
+
+# קבצי לוג
+*.log
+logs/
+
+# קובצי קונפיגורציה פרטיים
+secrets.json
+appsettings.Development.json
