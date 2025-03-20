@@ -11,7 +11,4 @@ public partial class Itemes
 
     public bool? IsComplete { get; set; }
 
-    // public Itemes(){
-    //     Id=1;
-    // }
 }
