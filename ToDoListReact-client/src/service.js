@@ -10,17 +10,20 @@ export default {
 
   addTask: async(name)=>{
     console.log('addTask', name)
-    //TODO
+    const result = await axios.post(`${apiUrl}/addTask`,{name:`${name}`})    
     return {};
   },
 
   setCompleted: async(id, isComplete)=>{
+
     console.log('setCompleted', {id, isComplete})
-    //TODO
-    return {};
+    const result = await axios.put(`${apiUrl}/update/${id}`, { isComplete });
+    return result.data;
   },
 
-  deleteTask:async()=>{
+  deleteTask:async(id)=>{
     console.log('deleteTask')
+    const result = await axios.delete(`${apiUrl}/delete/${id}`)
+    return result.data;
   }
 };
