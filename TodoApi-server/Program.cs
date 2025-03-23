@@ -4,6 +4,7 @@ using Microsoft.OpenApi.Models;
 using TodoApi;
 
 var builder = WebApplication.CreateBuilder(args);
+Console.WriteLine("===================================");
 builder.Configuration
 .SetBasePath(Directory.GetCurrentDirectory())
 .AddJsonFile("appsettings.json",optional:false,reloadOnChange:true)
@@ -33,16 +34,19 @@ builder.Services.AddCors(options =>
     });
     });
 
-
+Console.WriteLine("Connection String for ToDoDB:");
+Console.WriteLine(builder.Configuration.GetConnectionString("ToDoDB"));
 builder.Services.AddDbContext<ToDoDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("ToDoDB"),
-    Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.41-mysql"))
+    Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.41-mysql"),
+    mysqlOptions => mysqlOptions.EnableRetryOnFailure())
 );
 
 
-   builder.Services.AddAuthorization();
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
+
 app.UseCors();
 app.UseAuthorization();
 
@@ -73,7 +77,7 @@ app.MapGet("/items", async (ToDoDbContext context) =>
 {
    
  Console.WriteLine("😊");
-    var tasks = await context.itemes.ToListAsync();
+    var tasks = await context.items.ToListAsync();
     Console.WriteLine(tasks);
      return Results.Ok(tasks);
     
@@ -86,20 +90,20 @@ app.MapGet("/items", async (ToDoDbContext context) =>
 //     await context.SaveChangesAsync();
 //     return Results.Created($"/items/{task.Id}", task);
 // });
-app.MapPost("/addTask", async (ToDoDbContext context, Itemes i) =>
+app.MapPost("/addTask", async (ToDoDbContext context, Item i) =>
 {
     i.IsComplete = false;
-    await context.itemes.AddAsync(i);
+    await context.items.AddAsync(i);
     await context.SaveChangesAsync();
-    var result = await context.itemes.FindAsync(i.Id);
+    var result = await context.items.FindAsync(i.Id);
     return result;
 }
 );
 
 // עדכון משימה
-app.MapPut("/update/{id}", async (ToDoDbContext context, int id, Itemes updatedTask) =>
+app.MapPut("/update/{id}", async (ToDoDbContext context, int id, Item updatedTask) =>
 {
-    var task = await context.itemes.FindAsync(id);
+    var task = await context.items.FindAsync(id);
     if (task ==null) 
     return Results.NotFound(); // החזרת שגיאה אם המשימה לא קיימת
 
@@ -113,11 +117,11 @@ app.MapPut("/update/{id}", async (ToDoDbContext context, int id, Itemes updatedT
 // מחיקת משימה
 app.MapDelete("/delete/{id}", async (ToDoDbContext context, int id) =>
 {
-    var task = await context.itemes.FindAsync(id);
+    var task = await context.items.FindAsync(id);
     if (task is null)
      return Results.NotFound();
 
-    context.itemes.Remove(task);
+    context.items.Remove(task);
     await context.SaveChangesAsync();
     return Results.NoContent();
 });
