@@ -14,9 +14,9 @@ A Fullstack application for managing tasks, developed using Minimal API in .NET.
 **Task Retrieval:** Displaying the list of all tasks.
 ### Installation and Running
 Clone the project:
---bash
+```bash
 git clone https://github.com/talyaAmar/ToDoApi
---
+```
 
 ### Server-side (Minimal API)
 1. Database Setup:
@@ -24,21 +24,24 @@ git clone https://github.com/talyaAmar/ToDoApi
    - Create a table named Items with the fields Id, Name, and IsComplete.
    - Configure the Connection String in the appsettings.json file.
 2. Run the server:
-bash
+```bash
 dotnet watch run
+```
 
 
 ### Client-side (React)
 1. Install dependencies:
-bash
+```bash
 npm install
+```
 
 
 2. Configure API address:
 Update the route in service.js to your API address.
 3. Run the client:
-bash
+```bash
 npm start
+```
 ### Additional Notes
 - The application uses Entity Framework Core to access the database.
 - The API is configured with CORS to allow requests from the client application.
@@ -48,7 +51,7 @@ npm start
 
 ה
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -68,8 +71,9 @@ npm start
 **שליפת משימות:** הצגת רשימת כל המשימות.
 ### התקנה והרצה
 שיבוט הפרויקט:
-bash
+```bash
 git clone https://github.com/talyaAmar/ToDoApi
+```
 
 
 צד שרת (Minimal API)
@@ -78,25 +82,23 @@ git clone https://github.com/talyaAmar/ToDoApi
    - צרו טבלה בשם Items עם השדות Id, Name, ו-IsComplete.
    - הגדירו את Connection String בקובץ appsettings.json.
 2. הרצת השרת:
-bash
+```bash
 dotnet watch run
+```
 
 
 ### צד לקוח (React)
 1. התקנת תלויות:
 
-bash
+```bash
 npm install
-
-
+```
 2. הגדרת כתובת API:
   עדכנו את ה-route ב-service.js לכתובת ה-API שלכם.
 4. הרצת הלקוח:
-
-bash
+```bash
 npm start
-
-
+```
 
 ### הערות נוספות
 - האפליקציה משתמשת ב-Entity Framework Core לגישה למסד הנתונים.
